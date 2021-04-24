@@ -1,0 +1,14 @@
+name: lcoc
+channels:
+  - defaults
+dependencies:
+  - geopandas
+  - jupyter
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - pandas
+  - pip
+  - python=3
+  - requests
+  - shapely

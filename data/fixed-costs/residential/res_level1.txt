@@ -1,0 +1,2 @@
+equipment:0
+installation:0

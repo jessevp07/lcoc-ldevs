@@ -1,0 +1,2 @@
+equipment:38000
+installation:20000
