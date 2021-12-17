@@ -1,9 +1,3 @@
-eia_state_commercial_17.csv - State-level commercial retail price of electricity. Used to calculate Public L2 cost of electricity. Source: EIA (https://www.eia.gov/electricity/data/browser/#/topic/7?agg=1,0&geo=vvvvvvvvvvvvo&endsec=4&linechart=~&freq=A&start=2001&end=2018&ctype=linechart&ltype=pin&rtype=s&maptype=0&rse=0&pin=).  
-  
-eia_crosswalk_17.csv - Utility name, state -> eiaid crosswalk. Source: EIA Annual Electric Power Industry Report (https://www.eia.gov/electricity/data/eia861/).  
-  
-eia_utility_residential_17.csv - Utility-level residential retail price of electricty & number of customers. Source: EIA Annual Electric Power Industry Report (https://www.eia.gov/electricity/data/eia861/).  
-  
-eia_service_territory_17.csv - Table containing utility -> county crosswalk for county-level aggregation. Source: EIA Annual Electric Power Industry Report (https://www.eia.gov/electricity/data/eia861/).  
-  
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:f8ae9e939f77c331b02cb16f4e9e4074157da5000d2b9abaa7301dfbb6e9da46
+size 1565

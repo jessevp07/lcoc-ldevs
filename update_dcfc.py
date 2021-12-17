@@ -7,7 +7,7 @@ import lcoc.processing as proc
 
 p = sys.argv[1] #p = dcfc station profile name
 
-logfile = "logs/dcfc_{}.log".format(p)
+logfile = "logs\dcfc_{}.log".format(p)
 logger = logging.getLogger(__name__)
 hdlr = logging.FileHandler(logfile)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -47,7 +47,7 @@ db.filter_null_rates(industry='commercial')
 logger.info("DCFC-{}: filtered null rates".format(p))
 logger.info("DCFC-{}: preprocessing complete".format(p))
 
-outpath = 'outputs/cost-of-electricity/urdb-dcfc-rates/'
+outpath = 'outputs\\cost-of-electricity\\urdb-dcfc-rates\\'
 
 load_profiles = config.DCFC_PROFILES_DICT
 

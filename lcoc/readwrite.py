@@ -14,6 +14,7 @@ from io import BytesIO, StringIO
 
 #private
 import lcoc.helpers as helpers
+import config
 
 #settings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -34,7 +35,7 @@ def read_urdb_data(source):
     
     return df
 
-def write_urdb_rate_data(urdb_rate_data, urdb_filepath = './', overwrite_identical=True):
+def write_urdb_rate_data(urdb_rate_data, urdb_filepath = os.path.join(config.HOME_PATH,'data','urdb'), overwrite_identical=True):
     """
     Takes Pandas DataFrame containing URDB rate data and stores as .csv at
     urdb_filepath. The 'overwrite_identical' variable indicates whether 
@@ -46,20 +47,20 @@ def write_urdb_rate_data(urdb_rate_data, urdb_filepath = './', overwrite_identic
     """
 
     todays_date = helpers.todays_date()
-    new_urdb_file = urdb_filepath+'usurdb_{}.csv'.format(todays_date)
+    new_urdb_file = os.path.join(urdb_filepath,f'usurdb_{todays_date}.csv')
     urdb_rate_data.to_csv(new_urdb_file, index=False)
         
     # Check if db has changed since last download
     if overwrite_identical:
-        prev_urdb_files = glob.glob(urdb_filepath+'*.csv')
+        prev_urdb_files = glob.glob(os.path.join(urdb_filepath,'*.csv'))
         if len(prev_urdb_files)>1:
             prev_urdb_dates = [fp.split('usurdb_')[1].split('.csv')[0] for fp in prev_urdb_files]
             prev_urdb_dates.remove(todays_date)
             most_recent_date = pd.Series(prev_urdb_dates).map(int).max()
-            most_recent_urdb_file = urdb_filepath+'usurdb_{}.csv'.format(most_recent_date)
+            most_recent_urdb_file = os.path.join(urdb_filepath,f'usurdb_{most_recent_date}.csv')
             
             if filecmp.cmp(new_urdb_file, most_recent_urdb_file, shallow=True):
-                subprocess.run('rm {}'.format(most_recent_urdb_file), shell=True)
+                subprocess.run(f'rm {most_recent_urdb_file}', shell=True)
                 prev_exists = True
             else:
                 prev_exists = False
@@ -90,7 +91,7 @@ def read_afdc_data():
 
     return df
 
-def write_afdc_data(afdc_df, afdc_filepath = './', overwrite_identical=True):
+def write_afdc_data(afdc_df, afdc_filepath = os.path.join(config.HOME_PATH,'data','afdc'), overwrite_identical=True):
     """
     Takes Pandas DataFrame containing AFDC DCFC data and stores as .csv at
     afdc_filepath. The 'overwrite_identical' variable indicates whether 
@@ -103,20 +104,20 @@ def write_afdc_data(afdc_df, afdc_filepath = './', overwrite_identical=True):
     
     path = os.getcwd()
     todays_date = helpers.todays_date()
-    new_afdc_file = afdc_filepath+'afdc_{}.csv'.format(todays_date)
+    new_afdc_file = os.path.join(afdc_filepath,f'afdc_{todays_date}.csv')
     afdc_df.to_csv(new_afdc_file, index=False)
         
     # Check if db has changed since last download
     if overwrite_identical:
-        prev_afdc_files = glob.glob(afdc_filepath+'*.csv')
+        prev_afdc_files = glob.glob(os.path.join(afdc_filepath,'*.csv'))
         if len(prev_afdc_files)>1:
             prev_afdc_dates = [fp.split('afdc_')[1].split('.csv')[0] for fp in prev_afdc_files]
             prev_afdc_dates.remove(todays_date)
             most_recent_date = pd.Series(prev_afdc_dates).map(int).max()
-            most_recent_afdc_file = afdc_filepath+'afdc_{}.csv'.format(most_recent_date)
+            most_recent_afdc_file = os.path.join(afdc_filepath,f'afdc_{most_recent_date}.csv')
             
             if filecmp.cmp(new_afdc_file, most_recent_afdc_file):
-                subprocess.run('rm {}'.format(most_recent_afdc_file), shell=True)
+                subprocess.run(f'rm {most_recent_afdc_file}', shell=True)
                 prev_exists = True
             else:
                 prev_exists = False

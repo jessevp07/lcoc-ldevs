@@ -6,7 +6,7 @@ import lcoc.urdb as urdb
 import lcoc.afdc as afdc 
 import lcoc.processing as proc
 
-logfile = "logs/res.log"
+logfile = "logs\\res.log"
 logger = logging.getLogger(__name__)
 hdlr = logging.FileHandler(logfile)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')

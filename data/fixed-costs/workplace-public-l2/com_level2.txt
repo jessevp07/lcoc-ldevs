@@ -1,2 +1,3 @@
-equipment:3500
-installation:2500
+version https://git-lfs.github.com/spec/v1
+oid sha256:d3c1dfb31d611cefb010b6f77ee40707c858f97f8294535be91bf29812739fa1
+size 33

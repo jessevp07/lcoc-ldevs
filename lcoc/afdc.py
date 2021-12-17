@@ -5,6 +5,8 @@ https://afdc.energy.gov/.
 #public
 import pandas as pd
 import geopandas as gpd
+import os
+import config
 from shapely.geometry import Point
 
 #private
@@ -39,7 +41,7 @@ class DCFastChargingLocator(object):
         self.station_data = self.station_data[self.station_data['EV DC Fast Count'] > 0]
         self.station_data = self.station_data.groupby(['Latitude', 'Longitude'])['EV DC Fast Count'].sum().reset_index()
 
-    def join_county_geoid(self):
+    def join_county_geoid(self,us_counties_gdf_file = os.path.join(config.DATA_PATH,'gis','2017_counties','cb_2017_us_county_500k','cb_2017_us_county_500k.shp')):
         """
         Function adds 'county_geoid' field to self.station_data by joining 
         station latitude/longitude to county geojson file.
@@ -55,7 +57,7 @@ class DCFastChargingLocator(object):
         self.station_data = gpd.GeoDataFrame(self.station_data, geometry='geom')
 
         # Spatial join
-        us_counties_gdf = gpd.read_file('data/gis/2017_counties/tl_2017_us_county.shp')
+        us_counties_gdf = gpd.read_file(us_counties_gdf_file)
         self.station_data.crs = us_counties_gdf.crs
         county_join_gdf = us_counties_gdf[['NAME', 'GEOID', 'STATEFP', 'COUNTYFP', 'geometry']]
         self.station_data = gpd.sjoin(self.station_data, us_counties_gdf, how='left', op='intersects')
@@ -67,7 +69,7 @@ class DCFastChargingLocator(object):
                                'COUNTYFP': 'county_fips'}, inplace=True)
         self.station_data.drop(columns='index_right', inplace=True)
         
-    def aggregate_counties_to_csv(self, outfile='outputs/county-dcfc-counts/afdc_county_station_counts.csv'):
+    def aggregate_counties_to_csv(self, outfile=os.path.join(config.OUTPUT_PATH,'county-dcfc-counts','afdc_county_station_counts.csv')):
         """
         Function counts stations in county. Outputs station counts as outfile.
         """

@@ -220,9 +220,7 @@ W System
 Wal-Mart rates 
 Warning sirens 
 Water 
-Watt 
 Weekend 
-Well 
 Wheeling 
 Wholesale 
 Wind 
@@ -280,3 +278,13 @@ Prepaid
 X-ray 
 Yard 
 YFL
+Pipeline
+Manufacture
+Railroad
+Net meter
+Well pump
+Space heat
+Electric hot water heat
+Heat pump
+Electric pump
+Distribution generation
